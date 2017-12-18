@@ -1,0 +1,314 @@
+
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]-->
+<!--[if IE 7]> <html lang="en" class="ie7"> <![endif]-->
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9 ]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="msvalidate.01" content="" />
+
+    <title>Bypassing publisher policy files | Vickram Ravichandran</title>
+
+    
+<link rel="shortcut icon" href="/static/favicons/favicon.ico">
+<link rel="apple-touch-icon" sizes="57x57" href="/static/favicons/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/static/favicons/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/static/favicons/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/static/favicons/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/static/favicons/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/static/favicons/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/static/favicons/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/static/favicons/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/favicons/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/static/favicons/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/static/favicons/android-icon-192x192.png">
+<link rel="manifest" href="/static/favicons/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/static/favicons/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,500,400italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+    
+    
+    <link rel="canonical" href="http://www.vickram.me/bypassing-publisher-policy-files" />
+    <meta name="keywords" content=".net, publisher policy, GAC, fuslogvw" />
+
+    
+<meta property="og:site_name" content="Vickram Ravichandran" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Bypassing publisher policy files" />
+<meta property="og:description" content="When resolving a strong named assembly, the GAC is the first place looked up, not the /bin folder. Publisher policy files if present in the GAC will redirect the request to a newer version of the assembly. Only if the GAC lookup is unsuccessful the application bin folder is looked" />
+<meta property="og:url" content="http://www.vickram.me/bypassing-publisher-policy-files" />
+
+    <meta property="article:tag" content=".net" />
+    <meta property="article:tag" content="publisher policy" />
+    <meta property="article:tag" content="GAC" />
+    <meta property="article:tag" content="fuslogvw" />
+
+    
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Bypassing publisher policy files" />
+<meta name="twitter:description" content="When resolving a strong named assembly, the GAC is the first place looked up, not the /bin folder. Publisher policy files if present in the GAC will redirect the request to a newer version of the assembly. Only if the GAC lookup is unsuccessful the application bin folder is looked" />
+<meta name="twitter:url" content="http://www.vickram.me/bypassing-publisher-policy-files" />
+<meta name="twitter:label1" content="Written by" />
+<meta name="twitter:data1" content="Vickram Ravichandran" />
+<meta name="twitter:label2" content="Filed under" />
+<meta name="twitter:data2" content=".net, publisher policy, GAC, fuslogvw" />
+
+
+    
+<script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Vickram Ravichandran",
+        "logo": "https://vickram.blob.core.windows.net/images/vickram-ravichandran.png?sv=2017-04-17&ss=b&srt=o&sp=r&se=2050-10-15T01:20:16Z&st=2017-10-14T17:20:16Z&spr=https&sig=HW39593GSHaPDTL%2F1BqWDWOaNQczc5ZGnPLRzUswd8k%3D"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Vickram Ravichandran",
+        "url": "http://www.vickram.me/author/vickramravichandran/",
+        "sameAs": [ "https://www.linkedin.com/in/vickramravichandran" ]
+    },
+    "headline": "Bypassing publisher policy files",
+    "url": "http://www.vickram.me/bypassing-publisher-policy-files",
+    "keywords": ".net, publisher policy, GAC, fuslogvw",
+    "description": "When resolving a strong named assembly, the GAC is the first place looked up, not the /bin folder. Publisher policy files if present in the GAC will redirect the request to a newer version of the assembly. Only if the GAC lookup is unsuccessful the application bin folder is looked",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://www.vickram.me"
+        }
+    }
+</script>
+
+
+
+
+
+    
+<script type="application/ld+json">
+    {
+        "@context": "http://schema.org/",
+        "@type": "Person",
+        "name": "Vickram Ravichandran",
+        "image":"https://vickram.blob.core.windows.net/images/vickram-ravichandran.png?sv=2017-04-17&ss=b&srt=o&sp=r&se=2050-10-15T01:20:16Z&st=2017-10-14T17:20:16Z&spr=https&sig=HW39593GSHaPDTL%2F1BqWDWOaNQczc5ZGnPLRzUswd8k%3D",
+        "jobTitle": "Senior Software Engineer",
+        "url": "http://www.vickram.me",
+        "sameAs" : [ https://www.linkedin.com/in/vickramravichandran, "http://www.vickramravichandran.com" ]
+    }
+</script>
+
+
+    <link href="../app.css?v=mIPojOEcdz6Ph8_jbR0rTCs2IrCTDCJgDc6iGtpOEns1" rel="stylesheet"/>
+
+
+    
+    
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+    
+
+
+<div class="sidebar">
+
+    <header class="header" role="banner">
+        <a href="http://www.vickram.me">
+            <img id="blog" class="logo" src="https://vickram.blob.core.windows.net/images/vickram-ravichandran.png?sv=2017-04-17&ss=b&srt=o&sp=r&se=2050-10-15T01:20:16Z&st=2017-10-14T17:20:16Z&spr=https&sig=HW39593GSHaPDTL%2F1BqWDWOaNQczc5ZGnPLRzUswd8k%3D">
+        </a>
+        
+        <h1 class="title">
+            <a href="http://www.vickram.me" style="text-decoration:none">Vickram Ravichandran</a>
+        </h1>
+        <p class="description"></p>
+
+        <div class="separator"></div>
+        
+        <nav class="main-nav responsive">
+            <ul>
+                <li><a href="http://www.vickram.me">Home</a></li>
+            </ul>
+        </nav>
+
+        <div class="social-icons">
+            <a href="http://www.vickram.me" class="icon icon-home"></a>
+            <a href="https://www.linkedin.com/in/vickramravichandran" class="icon icon-linkedin"></a>
+            <a href="https://github.com/vickramravichandran" class="icon icon-github-circled"></a>
+        </div>
+
+    </header>
+
+</div>
+
+
+    <div class="content">
+        <main role="main">
+            
+
+<link rel="amphtml" href="http://www.vickram.me/bypassing-publisher-policy-files/amp/" />
+
+
+
+<article class="post tag-net, tag-publisher-policy, tag-gac, tag-fuslogvw" role="article" itemscope itemtype="http://schema.org/Article">
+    <h1 class="post-title">Bypassing publisher policy files</h1>
+    <span class="post-meta">
+        
+        by Vickram Ravichandran
+    </span>
+    <section class="post-content">
+        <p>When resolving a strong named assembly, the GAC is the first place looked up, <u>not the /bin folder</u>. Publisher policy files if present in the GAC will redirect the request to a newer version of the assembly. Only if the GAC lookup is unsuccessful the application bin folder is looked up.</p>
+<p>For instance, Oracle.DataAccess 4.112.1.2 is a strong named assembly that is not installed in the GAC by default. Applications referring this assembly will fail to load unless we install the assembly in the GAC using the <code>gacutil</code> command-line utility. Alternatively, we can copy the assembly to the bin folder by setting the <code>Copy Local</code> property to true.</p>
+<p>######Disable Policy Files for All Assemblies in the App.Config File</p>
+<pre><code class="language-markup">&lt;configuration&gt;
+  &lt;runtime&gt;
+    &lt;assemblyBinding xmlns=&quot;urn:schemas-microsoft-com:asm.v1&quot;&gt;
+      &lt;!-- DISABLE GAC POLICY FILES --&gt;
+      &lt;publisherPolicy apply=&quot;no&quot; /&gt;
+    &lt;/assemblyBinding&gt;
+  &lt;/runtime&gt;
+&lt;/configuration&gt;
+</code></pre>
+<br>
+######Disable Policy Files for a Specific Assembly in the App.Config File
+<p>The configuration below shows how to redirect all requests for Oracle.DataAccess.dll to 2.112.1.2 for version in the range 0.0.0.0-65535.65535.65535.65535.</p>
+<pre><code class="language-markup">&lt;configuration&gt;
+  &lt;runtime&gt;
+    &lt;assemblyBinding xmlns=&quot;urn:schemas-microsoft-com:asm.v1&quot;&gt;
+      &lt;dependentAssembly&gt;
+        &lt;!-- DISABLE GAC POLICY FILES --&gt;
+        &lt;publisherPolicy apply=&quot;no&quot; /&gt;
+        &lt;assemblyIdentity name=&quot;Oracle.DataAccess&quot; publicKeyToken=&quot;89b483f429c47342&quot; culture=&quot;neutral&quot;/&gt;
+        &lt;bindingRedirect oldVersion=&quot;0.0.0.0-65535.65535.65535.65535&quot; newVersion=&quot;2.112.1.2&quot;/&gt;
+      &lt;/dependentAssembly&gt;
+    &lt;/assemblyBinding&gt;
+  &lt;/runtime&gt;
+&lt;/configuration&gt;
+</code></pre>
+<p>Note:</p>
+<ul>
+<li>If the <code>&lt;publisherPolicy&gt;</code> element is not present or apply is set to ‘yes’, the redirect in the GAC policy will apply</li>
+<li>Valid values for each part of the version number are 0 to 65535.</li>
+<li>The <code>publicKeyToken</code> and <code>culture</code> are required. If these attributes are omitted or are set to blank or null, the redirect will have no effect</li>
+</ul>
+<p>######Assembly Binding Log Viewer (Fuslogvw.exe)</p>
+<p>[From MSDN:](https://msdn.microsoft.com/en-us/library/e74a18c4(VS.71).aspx?tduid=(9f7dcf4661682586f98985177f4ba79a) The Assembly Binding Log Viewer displays details for failed assembly binds. This information helps you diagnose why the .NET Framework cannot locate an assembly at run time. These failures are usually the result of an assembly deployed to the wrong location or a mismatch in version numbers or cultures. The common language runtime’s failure to locate an assembly typically shows up as a TypeLoadException in your application.</p>
+<p>The FUSLOGVW.exe utility can be found at these locations:</p>
+<p><code>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\NETFX 4.0 Tools</code></p>
+<p>for 64-bit..</p>
+<p><code>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\NETFX 4.0 Tools\x64</code></p>
+<p>This following sample log shows a succeeded assembly bind for Oracle.DataAccess.dll. The application comes looking for version 2.111.6.20 and due to the redirect, gets served 2.111.6.0 instead. I have highlighted the most relevant entries.</p>
+<p style="font-family:Monaco, Consolas, 'Andale Mono', 'DejaVu Sans Mono', monospace;font-size:12px">
+*** Assembly Binder Log Entry&nbsp; (5/25/2011 @ 10:42:42 PM) ***<br>
+<span style="color:#ff0000;">The operation was successful. Bind result: hr = 0x0. The operation completed successfully. </span><br>
+Assembly manager loaded from:&nbsp; C:\Windows\Microsoft.NET\Framework\v2.0.50727\mscorwks.dll<br>
+Running under executable&nbsp; C:\Windows\SysWOW64\inetsrv\w3wp.exe<br>
+--- A detailed error log follows.= Pre-bind state information =<br>
+LOG: User = IIS APPPOOL\Classic .NET AppPool<br>
+<span style="color:#ff0000;">LOG: DisplayName = Oracle.DataAccess, Version=2.111.6.20, Culture=neutral, PublicKeyToken=89b483f429c47342 (Fully-specified)</span><br>
+LOG: Appbase = file:///C:/inetpub/wwwroot/hello/<br>
+LOG: Initial PrivatePath = C:\inetpub\wwwroot\hello\bin<br>
+LOG: Dynamic Base = C:\Windows\Microsoft.NET\Framework\v2.0.50727\Temporary ASP.NET Files\hello\f5bd5b60<br>
+LOG: Cache Base = C:\Windows\Microsoft.NET\Framework\v2.0.50727\Temporary ASP.NET Files\hello\f5bd5b60<br>
+LOG: AppName = 18c658a8<br>
+<span style="color:#ff0000;">Calling assembly : MyAssembly.HelloWorld, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null.</span><br/>
+LOG: This bind starts in default load context.<br>
+LOG: Using application configuration file: C:\inetpub\wwwroot\hello\web.config<br>
+LOG: Using host configuration file: C:\Windows\Microsoft.NET\Framework\v2.0.50727\Aspnet.config<br>
+LOG: Using machine configuration file from C:\Windows\Microsoft.NET\Framework\v2.0.50727\config\machine.config.<br>
+<span style="color:#ff0000;">LOG: Redirect found in application configuration file: 2.111.6.20 redirected to 2.111.6.0.</span><br>
+<span style="color:#ff0000;">LOG: Safe mode is set (publisher policy disallowed).&nbsp;</span><br>
+<span style="color:#ff0000;">LOG: Post-policy reference: Oracle.DataAccess, Version=2.111.6.0, Culture=neutral, PublicKeyToken=89b483f429c47342&nbsp;</span><br>
+<span style="color:#ff0000;">LOG: Found assembly by looking in the GAC.&nbsp;</span><br>
+<span style="color:#ff0000;">LOG: Binding succeeds. Returns assembly from C:\Windows\assembly\GAC_32\Oracle.DataAccess\2.111.6.0__89b483f429c47342\Oracle.DataAccess.dll.</span><br>
+LOG: Assembly is loaded in default load context.</code></p>
+
+    </section>
+
+    
+<div class="post-meta">
+    <div class="post-tags icon-tag">
+            <a href="/tag/net/">.net</a>  •             <a href="/tag/publisher-policy/">publisher policy</a>  •             <a href="/tag/gac/">GAC</a>  •             <a href="/tag/fuslogvw/">fuslogvw</a>     </div>
+</div>
+
+    
+
+<footer class="post-footer">
+    <section class="share">
+        <h4 class="post-share">Share this post</h4>
+        <ul>
+            <li>
+                <a href="https://plus.google.com/share?url=http://www.vickram.me/bypassing-publisher-policy-files"
+                    onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <i class="icon icon-gplus"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://twitter.com/share?text=Bypassing+publisher+policy+files;url=http://www.vickram.me/bypassing-publisher-policy-files"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <i class="icon icon-twitter"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=http://www.vickram.me/bypassing-publisher-policy-files"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <i class="icon icon-facebook"></i>
+                </a>
+            </li>
+        </ul>
+    </section>
+</footer>
+
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script>
+        /**
+        * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+        * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+
+        var disqus_config = function () {
+            this.page.url = "http://www.vickram.me/bypassing-publisher-policy-files";
+            this.page.identifier = "bypassing-publisher-policy-files";
+            this.page.title = "Bypassing publisher policy files";
+        };
+
+        (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+
+            s.src = '//vickram.disqus.com/embed.js';
+
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</section>
+
+</article>
+
+
+        </main>
+    </div>
+
+    <script src="../app.js?v=_QvRy-x53dGG35wUxtaekHJdHwwEkHFwZztABa1JJJM1"></script>
+
+
+</body>
+</html>

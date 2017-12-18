@@ -1,0 +1,259 @@
+
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]-->
+<!--[if IE 7]> <html lang="en" class="ie7"> <![endif]-->
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9 ]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="msvalidate.01" content="" />
+
+    <title>angular-datepicker-light plugin | Vickram Ravichandran</title>
+
+    
+<link rel="shortcut icon" href="/static/favicons/favicon.ico">
+<link rel="apple-touch-icon" sizes="57x57" href="/static/favicons/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/static/favicons/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/static/favicons/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/static/favicons/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/static/favicons/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/static/favicons/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/static/favicons/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/static/favicons/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/favicons/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/static/favicons/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/static/favicons/android-icon-192x192.png">
+<link rel="manifest" href="/static/favicons/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/static/favicons/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,500,400italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+    
+    
+    <link rel="canonical" href="http://www.vickram.me/angular-datepicker-light" />
+    <meta name="keywords" content="angular, datepicker, plugin" />
+
+    
+<meta property="og:site_name" content="Vickram Ravichandran" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="angular-datepicker-light plugin" />
+<meta property="og:description" content="A very light weight date picker directive for AngularJS 1.x" />
+<meta property="og:url" content="http://www.vickram.me/angular-datepicker-light" />
+
+    <meta property="article:tag" content="angular" />
+    <meta property="article:tag" content="datepicker" />
+    <meta property="article:tag" content="plugin" />
+
+    
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="angular-datepicker-light plugin" />
+<meta name="twitter:description" content="A very light weight date picker directive for AngularJS 1.x" />
+<meta name="twitter:url" content="http://www.vickram.me/angular-datepicker-light" />
+<meta name="twitter:label1" content="Written by" />
+<meta name="twitter:data1" content="Vickram Ravichandran" />
+<meta name="twitter:label2" content="Filed under" />
+<meta name="twitter:data2" content="angular, datepicker, plugin" />
+
+
+    
+<script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Vickram Ravichandran",
+        "logo": "https://vickram.blob.core.windows.net/images/vickram-ravichandran.png?sv=2017-04-17&ss=b&srt=o&sp=r&se=2050-10-15T01:20:16Z&st=2017-10-14T17:20:16Z&spr=https&sig=HW39593GSHaPDTL%2F1BqWDWOaNQczc5ZGnPLRzUswd8k%3D"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Vickram Ravichandran",
+        "url": "http://www.vickram.me/author/vickramravichandran/",
+        "sameAs": [ "https://www.linkedin.com/in/vickramravichandran" ]
+    },
+    "headline": "angular-datepicker-light plugin",
+    "url": "http://www.vickram.me/angular-datepicker-light",
+    "keywords": "angular, datepicker, plugin",
+    "description": "A very light weight date picker directive for AngularJS 1.x",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://www.vickram.me"
+        }
+    }
+</script>
+
+
+
+
+
+    
+<script type="application/ld+json">
+    {
+        "@context": "http://schema.org/",
+        "@type": "Person",
+        "name": "Vickram Ravichandran",
+        "image":"https://vickram.blob.core.windows.net/images/vickram-ravichandran.png?sv=2017-04-17&ss=b&srt=o&sp=r&se=2050-10-15T01:20:16Z&st=2017-10-14T17:20:16Z&spr=https&sig=HW39593GSHaPDTL%2F1BqWDWOaNQczc5ZGnPLRzUswd8k%3D",
+        "jobTitle": "Senior Software Engineer",
+        "url": "http://www.vickram.me",
+        "sameAs" : [ https://www.linkedin.com/in/vickramravichandran, "http://www.vickramravichandran.com" ]
+    }
+</script>
+
+
+    <link href="../app.css?v=mIPojOEcdz6Ph8_jbR0rTCs2IrCTDCJgDc6iGtpOEns1" rel="stylesheet"/>
+
+
+    
+    
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+    
+
+
+<div class="sidebar">
+
+    <header class="header" role="banner">
+        <a href="http://www.vickram.me">
+            <img id="blog" class="logo" src="https://vickram.blob.core.windows.net/images/vickram-ravichandran.png?sv=2017-04-17&ss=b&srt=o&sp=r&se=2050-10-15T01:20:16Z&st=2017-10-14T17:20:16Z&spr=https&sig=HW39593GSHaPDTL%2F1BqWDWOaNQczc5ZGnPLRzUswd8k%3D">
+        </a>
+        
+        <h1 class="title">
+            <a href="http://www.vickram.me" style="text-decoration:none">Vickram Ravichandran</a>
+        </h1>
+        <p class="description"></p>
+
+        <div class="separator"></div>
+        
+        <nav class="main-nav responsive">
+            <ul>
+                <li><a href="http://www.vickram.me">Home</a></li>
+            </ul>
+        </nav>
+
+        <div class="social-icons">
+            <a href="http://www.vickram.me" class="icon icon-home"></a>
+            <a href="https://www.linkedin.com/in/vickramravichandran" class="icon icon-linkedin"></a>
+            <a href="https://github.com/vickramravichandran" class="icon icon-github-circled"></a>
+        </div>
+
+    </header>
+
+</div>
+
+
+    <div class="content">
+        <main role="main">
+            
+
+<link rel="amphtml" href="http://www.vickram.me/angular-datepicker-light/amp/" />
+
+
+
+<article class="post tag-angular, tag-datepicker, tag-plugin" role="article" itemscope itemtype="http://schema.org/Article">
+    <h1 class="post-title">angular-datepicker-light plugin</h1>
+    <span class="post-meta">
+        
+        by Vickram Ravichandran
+    </span>
+    <section class="post-content">
+        <p><a href="http://demo.vickram.me/angular-datepicker-light"><strong>Live Demo</strong></a> and source code on <a href="https://github.com/vickramravichandran/angular-datepicker-light">Github</a>.</p>
+<p><code>npm install angular-datepicker-light</code></p>
+<p><code>bower install angular-datepicker-light</code></p>
+<p><img src="https://vickram.blob.core.windows.net/images/angular-datepicker-light.png?sv=2016-05-31&amp;ss=bfqt&amp;srt=sco&amp;sp=rlp&amp;se=2050-05-13T05:42:23Z&amp;st=2017-05-12T21:42:23Z&amp;spr=https,http&amp;sig=X%2BLugsaFaRx6Vq0w1n0za8zk3K7Y0uzVFKKeRFjuf%2Bc%3D" alt="angular-datepicker-light" /></p>
+<p>Design decisions I had in mind when I started to create my plugin:</p>
+<ul>
+<li>Do not use <code>$scope</code> inside controllers.</li>
+<li>Do not convolute <code>$scope</code> with properties. Use <code>bindToController</code> with <code>controllerAs</code> instead.</li>
+<li>Do not in anyway modify position of the input element in the DOM. This meant no <code>transclusion</code>.</li>
+<li>Keep usage of <code>$scope.$watch</code> to the minimal.</li>
+</ul>
+
+    </section>
+
+    
+<div class="post-meta">
+    <div class="post-tags icon-tag">
+            <a href="/tag/angular/">angular</a>  •             <a href="/tag/datepicker/">datepicker</a>  •             <a href="/tag/plugin/">plugin</a>     </div>
+</div>
+
+    
+
+<footer class="post-footer">
+    <section class="share">
+        <h4 class="post-share">Share this post</h4>
+        <ul>
+            <li>
+                <a href="https://plus.google.com/share?url=http://www.vickram.me/angular-datepicker-light"
+                    onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <i class="icon icon-gplus"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://twitter.com/share?text=angular-datepicker-light+plugin;url=http://www.vickram.me/angular-datepicker-light"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <i class="icon icon-twitter"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=http://www.vickram.me/angular-datepicker-light"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <i class="icon icon-facebook"></i>
+                </a>
+            </li>
+        </ul>
+    </section>
+</footer>
+
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script>
+        /**
+        * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+        * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+
+        var disqus_config = function () {
+            this.page.url = "http://www.vickram.me/angular-datepicker-light";
+            this.page.identifier = "angular-datepicker-light";
+            this.page.title = "angular-datepicker-light plugin";
+        };
+
+        (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+
+            s.src = '//vickram.disqus.com/embed.js';
+
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</section>
+
+</article>
+
+
+        </main>
+    </div>
+
+    <script src="../app.js?v=_QvRy-x53dGG35wUxtaekHJdHwwEkHFwZztABa1JJJM1"></script>
+
+
+</body>
+</html>

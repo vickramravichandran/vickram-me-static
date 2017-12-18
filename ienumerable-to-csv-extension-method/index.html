@@ -1,0 +1,463 @@
+
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]-->
+<!--[if IE 7]> <html lang="en" class="ie7"> <![endif]-->
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9 ]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="msvalidate.01" content="" />
+
+    <title>IEnumerable ToCsv() extension method | Vickram Ravichandran</title>
+
+    
+<link rel="shortcut icon" href="/static/favicons/favicon.ico">
+<link rel="apple-touch-icon" sizes="57x57" href="/static/favicons/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/static/favicons/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/static/favicons/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/static/favicons/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/static/favicons/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/static/favicons/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/static/favicons/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/static/favicons/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/favicons/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/static/favicons/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/static/favicons/android-icon-192x192.png">
+<link rel="manifest" href="/static/favicons/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/static/favicons/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,500,400italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+    
+    
+    <link rel="canonical" href="http://www.vickram.me/ienumerable-to-csv-extension-method" />
+    <meta name="keywords" content="c#, Extension, IEnumerable" />
+
+    
+<meta property="og:site_name" content="Vickram Ravichandran" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="IEnumerable ToCsv() extension method" />
+<meta property="og:description" content="In a recently concluded project that had many tabular reports, I had to display a link on each report to download the data as a comma-delimited file. Additionally, the downloaded file was expected to have a header row to help identify the columns when imported into excel." />
+<meta property="og:url" content="http://www.vickram.me/ienumerable-to-csv-extension-method" />
+
+    <meta property="article:tag" content="c#" />
+    <meta property="article:tag" content="Extension" />
+    <meta property="article:tag" content="IEnumerable" />
+
+    
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="IEnumerable ToCsv() extension method" />
+<meta name="twitter:description" content="In a recently concluded project that had many tabular reports, I had to display a link on each report to download the data as a comma-delimited file. Additionally, the downloaded file was expected to have a header row to help identify the columns when imported into excel." />
+<meta name="twitter:url" content="http://www.vickram.me/ienumerable-to-csv-extension-method" />
+<meta name="twitter:label1" content="Written by" />
+<meta name="twitter:data1" content="Vickram Ravichandran" />
+<meta name="twitter:label2" content="Filed under" />
+<meta name="twitter:data2" content="c#, Extension, IEnumerable" />
+
+
+    
+<script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Vickram Ravichandran",
+        "logo": "https://vickram.blob.core.windows.net/images/vickram-ravichandran.png?sv=2017-04-17&ss=b&srt=o&sp=r&se=2050-10-15T01:20:16Z&st=2017-10-14T17:20:16Z&spr=https&sig=HW39593GSHaPDTL%2F1BqWDWOaNQczc5ZGnPLRzUswd8k%3D"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Vickram Ravichandran",
+        "url": "http://www.vickram.me/author/vickramravichandran/",
+        "sameAs": [ "https://www.linkedin.com/in/vickramravichandran" ]
+    },
+    "headline": "IEnumerable ToCsv() extension method",
+    "url": "http://www.vickram.me/ienumerable-to-csv-extension-method",
+    "keywords": "c#, Extension, IEnumerable",
+    "description": "In a recently concluded project that had many tabular reports, I had to display a link on each report to download the data as a comma-delimited file. Additionally, the downloaded file was expected to have a header row to help identify the columns when imported into excel.",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://www.vickram.me"
+        }
+    }
+</script>
+
+
+
+
+
+    
+<script type="application/ld+json">
+    {
+        "@context": "http://schema.org/",
+        "@type": "Person",
+        "name": "Vickram Ravichandran",
+        "image":"https://vickram.blob.core.windows.net/images/vickram-ravichandran.png?sv=2017-04-17&ss=b&srt=o&sp=r&se=2050-10-15T01:20:16Z&st=2017-10-14T17:20:16Z&spr=https&sig=HW39593GSHaPDTL%2F1BqWDWOaNQczc5ZGnPLRzUswd8k%3D",
+        "jobTitle": "Senior Software Engineer",
+        "url": "http://www.vickram.me",
+        "sameAs" : [ https://www.linkedin.com/in/vickramravichandran, "http://www.vickramravichandran.com" ]
+    }
+</script>
+
+
+    <link href="/css?v=mIPojOEcdz6Ph8_jbR0rTCs2IrCTDCJgDc6iGtpOEns1" rel="stylesheet"/>
+
+
+    
+    
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+    
+
+
+<div class="sidebar">
+
+    <header class="header" role="banner">
+        <a href="http://www.vickram.me">
+            <img id="blog" class="logo" src="https://vickram.blob.core.windows.net/images/vickram-ravichandran.png?sv=2017-04-17&ss=b&srt=o&sp=r&se=2050-10-15T01:20:16Z&st=2017-10-14T17:20:16Z&spr=https&sig=HW39593GSHaPDTL%2F1BqWDWOaNQczc5ZGnPLRzUswd8k%3D">
+        </a>
+        
+        <h1 class="title">
+            <a href="http://www.vickram.me" style="text-decoration:none">Vickram Ravichandran</a>
+        </h1>
+        <p class="description"></p>
+
+        <div class="separator"></div>
+        
+        <nav class="main-nav responsive">
+            <ul>
+                <li><a href="http://www.vickram.me">Home</a></li>
+            </ul>
+        </nav>
+
+        <div class="social-icons">
+            <a href="http://www.vickram.me" class="icon icon-home"></a>
+            <a href="https://www.linkedin.com/in/vickramravichandran" class="icon icon-linkedin"></a>
+            <a href="https://github.com/vickramravichandran" class="icon icon-github-circled"></a>
+        </div>
+
+    </header>
+
+</div>
+
+
+    <div class="content">
+        <main role="main">
+            
+
+<link rel="amphtml" href="http://www.vickram.me/ienumerable-to-csv-extension-method/amp/" />
+
+
+
+<article class="post tag-c, tag-extension, tag-ienumerable" role="article" itemscope itemtype="http://schema.org/Article">
+    <h1 class="post-title">IEnumerable ToCsv() extension method</h1>
+    <span class="post-meta">
+        
+        by Vickram Ravichandran
+    </span>
+    <section class="post-content">
+        <p>In a recently concluded project that had many tabular reports, I had to display a link on each report to download the data as a comma-delimited file. Additionally, the downloaded file was expected to have a header row to help identify the columns when imported into excel.</p>
+<p>All the reports accepted an <code>IEnumerable&lt;T&gt;</code> as data source and all the properties of the model class were decorated with the <code>JsonProperty</code> attribute from the <code>Json.net</code> library.</p>
+<pre><code class="language-csharp">public class Car  
+{
+    [JsonProperty(PropertyName = &quot;make&quot;, Order = 1)]
+    public string Make { get; set; }
+
+    [JsonProperty(PropertyName = &quot;year&quot;, Order = 0)]
+    public int Year { get; set; }
+
+    [JsonProperty(PropertyName = &quot;price&quot;, Order = 2)]
+    public decimal Price { get; set; }
+}
+</code></pre>
+<p>I decided to write a helper method to generate a comma-delimted string from an <code>IEnumerable</code> leveraging the <code>JsonProperty</code> attribute for header column name. This is how it turned out to be.</p>
+<pre><code class="language-csharp">namespace App.Web.Helpers  
+{
+    public class Helper
+    {
+        public static void WriteCSV(
+               IEnumerable data,
+               TextWriter output,
+               bool headerRow = false)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException(&quot;data&quot;);
+            }
+
+            const char separator = ',';
+            Type type = null;
+
+            if (data.GetType().IsGenericType)
+            {
+                type = data.GetType().GetGenericArguments()[0];
+            }
+            else
+            {
+                // get the type of the data item
+                // perhaps there is a better way
+                foreach (var item in data)
+                {
+                    type = item.GetType();
+                    break;
+                }
+            }
+
+            // only take properties with [JsonProperty] attribute defined
+            var propsInfo = type.GetProperties(BindingFlags.Public 
+                                    | BindingFlags.Instance)
+                          .Where(p =&gt; p.IsDefined(typeof(JsonPropertyAttribute), true));
+
+            if (!propsInfo.Any())
+            {
+                return;
+            }
+
+            // create a collection of properties to write
+            var propsToWrite = new List&lt;PropertyInfoWrapper&gt;();
+
+            foreach (var pi in propsInfo)
+            {
+                // get the [JsonProperty] attribute
+                var attr = (JsonPropertyAttribute)Attribute
+                     .GetCustomAttribute(pi, typeof(JsonPropertyAttribute));
+
+                propsToWrite.Add(new PropertyInfoWrapper(pi) { Order = attr.Order });
+
+                // write header columns
+                if (headerRow)
+                {
+                    // use the actual property name if PropertyName attribute is null
+                    string displayName = attr.PropertyName ?? pi.Name;
+
+                    // if the display name contains a separator char
+                    // enclose it in double quotes
+                    if (displayName.IndexOf(separator) != -1)
+                    {
+                        output.Write(&quot;\&quot;&quot; + displayName + &quot;\&quot;&quot;);
+                    }
+                    else
+                    {
+                        output.Write(displayName);
+                    }
+
+                    output.Write(separator);
+                }
+            }
+
+            if (headerRow)
+            {
+                output.WriteLine();
+            }
+
+            bool firstProperty = false;
+            // sort properties by the Order property then by Property name
+            var sortedProps = propsToWrite
+                      .OrderBy(p =&gt; p.Order)
+                      .ThenBy(p =&gt; p.PropertyInfo.Name));                
+
+            // write the data items
+            foreach (var item in data)
+            {
+                firstProperty = true;                
+                foreach (var prop in sortedProps)
+                {
+                    // prevents a leading separator char on a row
+                    if (!firstProperty)
+                    {
+                        output.Write(separator);
+                    }
+                    firstProperty = false;
+
+                    var pi = prop.PropertyInfo;
+
+                    object propValue = pi.GetValue(item, null);
+
+                    if (propValue == null)
+                    {
+                        output.Write(&quot;&quot;);
+                    }
+                    else
+                    {
+                        // collection property types
+                        // create a pipe (|) separated string for collection properties
+                        if (pi.PropertyType is ICollection)
+                        {
+                            var sb = new StringBuilder();
+
+                            foreach (var enumItem in (propValue as IEnumerable))
+                            {
+                                sb.AppendFormat(&quot;{0}| &quot;, enumItem.ToString());
+                            }
+
+                            output.Write(sb.ToString());
+                        }
+                        else
+                        {
+                            string value = propValue.ToString();
+
+                            // if the data contains a separator char
+                            // enclose it in double quotes
+                            if (value.IndexOf(separator) != -1)
+                            {
+                                output.Write(&quot;\&quot;&quot; + value + &quot;\&quot;&quot;);
+                            }
+                            else
+                            {
+                                output.Write(value);
+                            }
+                        }
+                    }
+                }
+
+                output.WriteLine();
+            }
+        }
+
+        // the helper class used in the WriteCSV method
+        class PropertyInfoWrapper
+        {
+            public int Order { get; set; }
+
+            public PropertyInfo PropertyInfo { get; private set; }
+
+            public PropertyInfoWrapper(PropertyInfo propertyInfo)
+            {
+                PropertyInfo = propertyInfo;
+            }
+        }
+    }
+}
+</code></pre>
+<p>With the above code in place, generating a csv from an <code>IEnumerable</code> is a one-liner.</p>
+<pre><code class="language-csharp">var cars = new List&lt;Car&gt;();
+
+cars.Add(new Car { Make = &quot;Chevy&quot;, Year = 2004});
+cars.Add(new Car { Make = &quot;Ford&quot;, Year = 2005});
+
+using(var writer = new StringWriter())
+{
+    Helper.WriteCSV(data, writer, headerRow);
+
+    string csv = writer.ToString();
+}
+</code></pre>
+<p>It gets better with an extension method.</p>
+<pre><code class="language-csharp">namespace App.Web.Helpers  
+{
+    public static class Extensions
+    {
+        public static string ToCsv(
+            this IEnumerable data,
+            bool headerRow = false)
+        {
+            using(var writer = new StringWriter())
+            {
+                Helper.WriteCSV(data, writer, headerRow);
+
+                return writer.ToString();
+            }
+        }
+    }
+}
+</code></pre>
+<pre><code class="language-csharp">// no header row
+string csv = cars.ToCsv();
+
+// with header row
+string csvWithHeader = cars.ToCsv(true);
+</code></pre>
+<p>Related</p>
+<ul>
+<li>http://www.vickram.me/download-csv-using-asp-net-web-api</li>
+</ul>
+
+    </section>
+
+    
+<div class="post-meta">
+    <div class="post-tags icon-tag">
+            <a href="/tag/c/">c#</a>  •             <a href="/tag/extension/">Extension</a>  •             <a href="/tag/ienumerable/">IEnumerable</a>     </div>
+</div>
+
+    
+
+<footer class="post-footer">
+    <section class="share">
+        <h4 class="post-share">Share this post</h4>
+        <ul>
+            <li>
+                <a href="https://plus.google.com/share?url=http://www.vickram.me/ienumerable-to-csv-extension-method"
+                    onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <i class="icon icon-gplus"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://twitter.com/share?text=IEnumerable+ToCsv()+extension+method;url=http://www.vickram.me/ienumerable-to-csv-extension-method"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <i class="icon icon-twitter"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=http://www.vickram.me/ienumerable-to-csv-extension-method"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <i class="icon icon-facebook"></i>
+                </a>
+            </li>
+        </ul>
+    </section>
+</footer>
+
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script>
+        /**
+        * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+        * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+
+        var disqus_config = function () {
+            this.page.url = "http://www.vickram.me/ienumerable-to-csv-extension-method";
+            this.page.identifier = "ienumerable-to-csv-extension-method";
+            this.page.title = "IEnumerable ToCsv() extension method";
+        };
+
+        (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+
+            s.src = '//vickram.disqus.com/embed.js';
+
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</section>
+
+</article>
+
+
+        </main>
+    </div>
+
+    <script src="/js?v=_QvRy-x53dGG35wUxtaekHJdHwwEkHFwZztABa1JJJM1"></script>
+
+
+</body>
+</html>

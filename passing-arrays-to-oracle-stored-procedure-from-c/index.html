@@ -1,0 +1,403 @@
+
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]-->
+<!--[if IE 7]> <html lang="en" class="ie7"> <![endif]-->
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9 ]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="msvalidate.01" content="" />
+
+    <title>Pass PL/SQL associative array to Oracle stored procedure from C# | Vickram Ravichandran</title>
+
+    
+<link rel="shortcut icon" href="/static/favicons/favicon.ico">
+<link rel="apple-touch-icon" sizes="57x57" href="/static/favicons/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/static/favicons/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/static/favicons/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/static/favicons/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/static/favicons/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/static/favicons/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/static/favicons/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/static/favicons/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/favicons/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/static/favicons/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/static/favicons/android-icon-192x192.png">
+<link rel="manifest" href="/static/favicons/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/static/favicons/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,500,400italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+    
+    
+    <link rel="canonical" href="http://www.vickram.me/passing-arrays-to-oracle-stored-procedure-from-c" />
+    <meta name="keywords" content="c#, Oracle, ODP.NET" />
+
+    
+<meta property="og:site_name" content="Vickram Ravichandran" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Pass PL/SQL associative array to Oracle stored procedure from C#" />
+<meta property="og:description" content="The ArrayBind feature of ODP.NET comes allows passing arrays to a stored procedure. Since all parameters should be arrays of equal length, it may not be the right choice if not all parameters are arrays. Say, we want to call a procedure that takes a user name and an array of role names" />
+<meta property="og:url" content="http://www.vickram.me/passing-arrays-to-oracle-stored-procedure-from-c" />
+
+    <meta property="article:tag" content="c#" />
+    <meta property="article:tag" content="Oracle" />
+    <meta property="article:tag" content="ODP.NET" />
+
+    
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Pass PL/SQL associative array to Oracle stored procedure from C#" />
+<meta name="twitter:description" content="The ArrayBind feature of ODP.NET comes allows passing arrays to a stored procedure. Since all parameters should be arrays of equal length, it may not be the right choice if not all parameters are arrays. Say, we want to call a procedure that takes a user name and an array of role names" />
+<meta name="twitter:url" content="http://www.vickram.me/passing-arrays-to-oracle-stored-procedure-from-c" />
+<meta name="twitter:label1" content="Written by" />
+<meta name="twitter:data1" content="Vickram Ravichandran" />
+<meta name="twitter:label2" content="Filed under" />
+<meta name="twitter:data2" content="c#, Oracle, ODP.NET" />
+
+
+    
+<script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Vickram Ravichandran",
+        "logo": "https://vickram.blob.core.windows.net/images/vickram-ravichandran.png?sv=2017-04-17&ss=b&srt=o&sp=r&se=2050-10-15T01:20:16Z&st=2017-10-14T17:20:16Z&spr=https&sig=HW39593GSHaPDTL%2F1BqWDWOaNQczc5ZGnPLRzUswd8k%3D"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Vickram Ravichandran",
+        "url": "http://www.vickram.me/author/vickramravichandran/",
+        "sameAs": [ "https://www.linkedin.com/in/vickramravichandran" ]
+    },
+    "headline": "Pass PL/SQL associative array to Oracle stored procedure from C#",
+    "url": "http://www.vickram.me/passing-arrays-to-oracle-stored-procedure-from-c",
+    "keywords": "c#, Oracle, ODP.NET",
+    "description": "The ArrayBind feature of ODP.NET comes allows passing arrays to a stored procedure. Since all parameters should be arrays of equal length, it may not be the right choice if not all parameters are arrays. Say, we want to call a procedure that takes a user name and an array of role names",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://www.vickram.me"
+        }
+    }
+</script>
+
+
+
+
+
+    
+<script type="application/ld+json">
+    {
+        "@context": "http://schema.org/",
+        "@type": "Person",
+        "name": "Vickram Ravichandran",
+        "image":"https://vickram.blob.core.windows.net/images/vickram-ravichandran.png?sv=2017-04-17&ss=b&srt=o&sp=r&se=2050-10-15T01:20:16Z&st=2017-10-14T17:20:16Z&spr=https&sig=HW39593GSHaPDTL%2F1BqWDWOaNQczc5ZGnPLRzUswd8k%3D",
+        "jobTitle": "Senior Software Engineer",
+        "url": "http://www.vickram.me",
+        "sameAs" : [ https://www.linkedin.com/in/vickramravichandran, "http://www.vickramravichandran.com" ]
+    }
+</script>
+
+
+    <link href="../app.css?v=mIPojOEcdz6Ph8_jbR0rTCs2IrCTDCJgDc6iGtpOEns1" rel="stylesheet"/>
+
+
+    
+    
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+    
+
+
+<div class="sidebar">
+
+    <header class="header" role="banner">
+        <a href="http://www.vickram.me">
+            <img id="blog" class="logo" src="https://vickram.blob.core.windows.net/images/vickram-ravichandran.png?sv=2017-04-17&ss=b&srt=o&sp=r&se=2050-10-15T01:20:16Z&st=2017-10-14T17:20:16Z&spr=https&sig=HW39593GSHaPDTL%2F1BqWDWOaNQczc5ZGnPLRzUswd8k%3D">
+        </a>
+        
+        <h1 class="title">
+            <a href="http://www.vickram.me" style="text-decoration:none">Vickram Ravichandran</a>
+        </h1>
+        <p class="description"></p>
+
+        <div class="separator"></div>
+        
+        <nav class="main-nav responsive">
+            <ul>
+                <li><a href="http://www.vickram.me">Home</a></li>
+            </ul>
+        </nav>
+
+        <div class="social-icons">
+            <a href="http://www.vickram.me" class="icon icon-home"></a>
+            <a href="https://www.linkedin.com/in/vickramravichandran" class="icon icon-linkedin"></a>
+            <a href="https://github.com/vickramravichandran" class="icon icon-github-circled"></a>
+        </div>
+
+    </header>
+
+</div>
+
+
+    <div class="content">
+        <main role="main">
+            
+
+<link rel="amphtml" href="http://www.vickram.me/passing-arrays-to-oracle-stored-procedure-from-c/amp/" />
+
+
+
+<article class="post tag-c, tag-oracle, tag-odp-net" role="article" itemscope itemtype="http://schema.org/Article">
+    <h1 class="post-title">Pass PL/SQL associative array to Oracle stored procedure from C#</h1>
+    <span class="post-meta">
+        
+        by Vickram Ravichandran
+    </span>
+    <section class="post-content">
+        <p>The <code>ArrayBind</code> feature of ODP.NET comes allows passing arrays to a stored procedure. Since all parameters should be arrays of equal length, it may not be the right choice if not all parameters are arrays. Say, we want to call a procedure that takes a user name and an array of role names. One way to accomplish this is to pass a delimited string for role names and parse it inside the procedure.</p>
+<pre><code class="language-pascal">PROCEDURE create_user (
+       i_user_name        IN VARCHAR2,
+       i_delim_role_list  IN VARCHAR2)
+IS
+   l_user_id app_user.user_id%TYPE;
+BEGIN
+   INSERT INTO app_user
+     (user_id, user_name, first_name, last_name)
+   VALUES
+     (user_seq.nextval, i_user_name, i_first_name, i_last_name)
+   RETURNING id INTO l_user_id;
+
+   --parse i_delim_role_list and insert
+   --INSERT INTO app_user_role
+   --  (user_id, role_name)
+   --VALUES
+   --  (l_user_id, l_role_name);
+END;
+</code></pre>
+<p>Another way is to use PL/SQL associative arrays instead. First define the PL/SQL associative array types in an Oracle package. I prefer to declare them in a separate package for re-usability.</p>
+<pre><code class="language-pascal">PACKAGE PKG_TYPES
+IS
+  type t_varchar2 is table of varchar2(4000) index by pls_integer;
+  type t_number is table of number index by pls_integer;
+  type t_date is table of date index by pls_integer;
+END;
+</code></pre>
+<p>Next modify the procedure and set the <code>i_role_name</code> parameter type to <code>pkg_types.t_varchar2</code> defined above.</p>
+<pre><code class="language-pascal">PROCEDURE create_user (
+    i_user_name  IN VARCHAR2,
+    i_role_name  IN pkg_types.t_varchar2)
+IS
+    l_user_id app_user.user_id%TYPE;
+BEGIN
+    INSERT INTO app_user
+      (user_id, user_name, first_name, last_name)
+    VALUES
+      (user_seq.nextval, i_user_name, i_first_name, i_last_name)
+    RETURNING id INTO l_user_id;
+
+    --iterate the roles array and insert
+    FOR x IN i_role_name.FIRST .. i_role_name.LAST
+    LOOP
+        INSERT INTO app_user_role
+        (user_id, role_name)
+        VALUES
+        (l_user_id, i_role_name(x));
+    END LOOP;
+END;
+</code></pre>
+<p>Finally the C# code to call the stored procedure.</p>
+<pre><code class="language-csharp">OracleConnection con = new OracleConnection(&quot;connection string&quot;);
+
+// the CreateCommand extension method is taken from
+// http://www.vickram.me/oracle-createcommand-extension-method
+OracleCommand com = con.CreateCommand(&quot;create_user&quot;);
+
+com.Parameters.Add(&quot;i_user_name&quot;, OracleDbType.Varchar2, userName, ParameterDirection.Input);
+
+com.Parameters.AddArray&lt;string&gt;(
+    name:      &quot;i_role_name&quot;,
+    dbType:    OracleDbType.Varchar2, 
+    array:     new string[] { &quot;TEAM_ADMIN&quot;, &quot;ALL_REPORTS&quot; },
+    direction: ParameterDirection.Input, 
+    emptyArrayValue: null);
+</code></pre>
+<p>The <code>AddArray</code> method is an extension that I created to simplify the code. It is important to set the <code>CollectionType</code> property of each Oracle parameter object to <code>OracleCollectionType.PLSQLAssociativeArray</code> for this to work.</p>
+<pre><code class="language-csharp">public static void AddArray&lt;T&gt;(
+       this OracleParameterCollection parameters,
+       string name,
+       OracleDbType dbType,
+       T[] array,
+       ParameterDirection dir,
+       T emptyArrayValue)
+{
+    parameters.Add(new OracleParameter {
+                ParameterName = name,
+                OracleDbType = dbType,
+                CollectionType = OracleCollectionType.PLSQLAssociativeArray
+            });
+
+    // oracle does not support passing null or empty arrays.
+    // so pass an array with exactly one element
+    // with a predefined value and use it to check
+    // for empty array condition inside the proc code
+    if (array == null || array.Length == 0)
+    {
+        parameters[name].Value = new T[1] { emptyArrayValue };
+        parameters[name].Size = 1;
+    }
+    else
+    {
+        parameters[name].Value = array;
+        parameters[name].Size = array.Length;
+    }
+}
+</code></pre>
+<p>Oracle does not support passing null or empty arrays to the PL/SQL array types. I get around this by sending a one-element array with a predefined value. Later in the procedure I check for this condition and act accordingly.</p>
+<pre><code class="language-pascal">IF i_role_name.COUNT = 1 AND i_role_name (1) IS NULL
+THEN
+    --handle empty array scenario. raise error?
+ELSE
+    --array is not empty
+END IF;
+</code></pre>
+<p>Here is another procedure that takes three parameters as PL/SQL associative arrays.</p>
+<pre><code class="language-pascal">PROCEDURE update_employees (
+    i_employee_id     IN pkg_types.t_varchar2,
+    i_new_salary      IN pkg_types.t_number,
+    i_account_expiry  IN pkg_types.t_date)
+IS
+BEGIN
+   FOR x IN i_employee_id.FIRST .. i_employee_id.LAST
+   LOOP
+      UPDATE employee 
+         SET salary = i_new_salary (x),
+             account_expiry = i_account_expiry (x)
+       WHERE employee_id  = i_employee_id (x);
+   END LOOP;
+END;
+</code></pre>
+<p>Here <code>emps</code> is of type <code>List&lt;Employee&gt;</code>.</p>
+<pre><code class="language-csharp">OracleConnection con = new OracleConnection(&quot;connection string&quot;);
+
+// the CreateCommand extension method is taken from
+// http://www.vickram.me/oracle-createcommand-extension
+OracleCommand com = con.CreateCommand(&quot;update_employees&quot;);
+
+com.Parameters.AddArray&lt;string&gt;(
+       name:      &quot;i_employee_id&quot;,
+       dbType:    OracleDbType.Varchar2, 
+       array:     emps.Select(x =&gt; x.EmployeeId).ToArray(),
+       direction: ParameterDirection.Input, 
+       emptyArrayValue: null);
+
+com.Parameters.AddArray&lt;decimal&gt;(
+       name:      &quot;i_new_salary&quot;,
+       dbType:    OracleDbType.Number, 
+       array:     emps.Select(x =&gt; x.Salary).ToArray(),
+       direction: ParameterDirection.Input, 
+       emptyArrayValue: 0);
+
+com.Parameters.AddArray&lt;DateTime?&gt;(
+       name:      &quot;i_account_expiry&quot;,
+       dbType:    OracleDbType.Number, 
+       array:     emps.Select(x =&gt; x.AccountExpiry).ToArray(),
+       direction: ParameterDirection.Input, 
+       emptyArrayValue: null);
+</code></pre>
+<p>Related</p>
+<ul>
+<li>http://www.oracle.com/technetwork/issue-archive/2009/09-sep/o59odpnet-085168.html</li>
+<li>http://www.oracle.com/technetwork/issue-archive/2007/07-jan/o17odp-093600.html</li>
+</ul>
+
+    </section>
+
+    
+<div class="post-meta">
+    <div class="post-tags icon-tag">
+            <a href="/tag/c/">c#</a>  •             <a href="/tag/oracle/">Oracle</a>  •             <a href="/tag/odp-net/">ODP.NET</a>     </div>
+</div>
+
+    
+
+<footer class="post-footer">
+    <section class="share">
+        <h4 class="post-share">Share this post</h4>
+        <ul>
+            <li>
+                <a href="https://plus.google.com/share?url=http://www.vickram.me/passing-arrays-to-oracle-stored-procedure-from-c"
+                    onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <i class="icon icon-gplus"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://twitter.com/share?text=Pass+PL%2FSQL+associative+array+to+Oracle+stored+procedure+from+C%23;url=http://www.vickram.me/passing-arrays-to-oracle-stored-procedure-from-c"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <i class="icon icon-twitter"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=http://www.vickram.me/passing-arrays-to-oracle-stored-procedure-from-c"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <i class="icon icon-facebook"></i>
+                </a>
+            </li>
+        </ul>
+    </section>
+</footer>
+
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script>
+        /**
+        * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+        * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+
+        var disqus_config = function () {
+            this.page.url = "http://www.vickram.me/passing-arrays-to-oracle-stored-procedure-from-c";
+            this.page.identifier = "passing-arrays-to-oracle-stored-procedure-from-c";
+            this.page.title = "Pass PL/SQL associative array to Oracle stored procedure from C#";
+        };
+
+        (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+
+            s.src = '//vickram.disqus.com/embed.js';
+
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</section>
+
+</article>
+
+
+        </main>
+    </div>
+
+    <script src="../app.js?v=_QvRy-x53dGG35wUxtaekHJdHwwEkHFwZztABa1JJJM1"></script>
+
+
+</body>
+</html>

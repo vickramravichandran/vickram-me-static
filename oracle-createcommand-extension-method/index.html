@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]-->
+<!--[if IE 7]> <html lang="en" class="ie7"> <![endif]-->
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9 ]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="msvalidate.01" content="" />
+
+    <title>ODP.NET CreateCommand() extension method | Vickram Ravichandran</title>
+
+    
+<link rel="shortcut icon" href="/static/favicons/favicon.ico">
+<link rel="apple-touch-icon" sizes="57x57" href="/static/favicons/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/static/favicons/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/static/favicons/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/static/favicons/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/static/favicons/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/static/favicons/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/static/favicons/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/static/favicons/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/favicons/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/static/favicons/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/static/favicons/android-icon-192x192.png">
+<link rel="manifest" href="/static/favicons/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/static/favicons/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,500,400italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+    
+    
+    <link rel="canonical" href="http://www.vickram.me/oracle-createcommand-extension-method" />
+    <meta name="keywords" content="c#, Oracle, ODP.NET, Extension" />
+
+    
+<meta property="og:site_name" content="Vickram Ravichandran" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="ODP.NET CreateCommand() extension method" />
+<meta property="og:description" content="The amount of code to prepare an OracleCommand object to call a stored procedure is quite boring. I created a simple extension method on the OracleConnection class that makes things easiy." />
+<meta property="og:url" content="http://www.vickram.me/oracle-createcommand-extension-method" />
+
+    <meta property="article:tag" content="c#" />
+    <meta property="article:tag" content="Oracle" />
+    <meta property="article:tag" content="ODP.NET" />
+    <meta property="article:tag" content="Extension" />
+
+    
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="ODP.NET CreateCommand() extension method" />
+<meta name="twitter:description" content="The amount of code to prepare an OracleCommand object to call a stored procedure is quite boring. I created a simple extension method on the OracleConnection class that makes things easiy." />
+<meta name="twitter:url" content="http://www.vickram.me/oracle-createcommand-extension-method" />
+<meta name="twitter:label1" content="Written by" />
+<meta name="twitter:data1" content="Vickram Ravichandran" />
+<meta name="twitter:label2" content="Filed under" />
+<meta name="twitter:data2" content="c#, Oracle, ODP.NET, Extension" />
+
+
+    
+<script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Vickram Ravichandran",
+        "logo": "https://vickram.blob.core.windows.net/images/vickram-ravichandran.png?sv=2017-04-17&ss=b&srt=o&sp=r&se=2050-10-15T01:20:16Z&st=2017-10-14T17:20:16Z&spr=https&sig=HW39593GSHaPDTL%2F1BqWDWOaNQczc5ZGnPLRzUswd8k%3D"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Vickram Ravichandran",
+        "url": "http://www.vickram.me/author/vickramravichandran/",
+        "sameAs": [ "https://www.linkedin.com/in/vickramravichandran" ]
+    },
+    "headline": "ODP.NET CreateCommand() extension method",
+    "url": "http://www.vickram.me/oracle-createcommand-extension-method",
+    "keywords": "c#, Oracle, ODP.NET, Extension",
+    "description": "The amount of code to prepare an OracleCommand object to call a stored procedure is quite boring. I created a simple extension method on the OracleConnection class that makes things easiy.",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://www.vickram.me"
+        }
+    }
+</script>
+
+
+
+
+
+    
+<script type="application/ld+json">
+    {
+        "@context": "http://schema.org/",
+        "@type": "Person",
+        "name": "Vickram Ravichandran",
+        "image":"https://vickram.blob.core.windows.net/images/vickram-ravichandran.png?sv=2017-04-17&ss=b&srt=o&sp=r&se=2050-10-15T01:20:16Z&st=2017-10-14T17:20:16Z&spr=https&sig=HW39593GSHaPDTL%2F1BqWDWOaNQczc5ZGnPLRzUswd8k%3D",
+        "jobTitle": "Senior Software Engineer",
+        "url": "http://www.vickram.me",
+        "sameAs" : [ https://www.linkedin.com/in/vickramravichandran, "http://www.vickramravichandran.com" ]
+    }
+</script>
+
+
+    <link href="../app.css?v=mIPojOEcdz6Ph8_jbR0rTCs2IrCTDCJgDc6iGtpOEns1" rel="stylesheet"/>
+
+
+    
+    
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+    
+
+
+<div class="sidebar">
+
+    <header class="header" role="banner">
+        <a href="http://www.vickram.me">
+            <img id="blog" class="logo" src="https://vickram.blob.core.windows.net/images/vickram-ravichandran.png?sv=2017-04-17&ss=b&srt=o&sp=r&se=2050-10-15T01:20:16Z&st=2017-10-14T17:20:16Z&spr=https&sig=HW39593GSHaPDTL%2F1BqWDWOaNQczc5ZGnPLRzUswd8k%3D">
+        </a>
+        
+        <h1 class="title">
+            <a href="http://www.vickram.me" style="text-decoration:none">Vickram Ravichandran</a>
+        </h1>
+        <p class="description"></p>
+
+        <div class="separator"></div>
+        
+        <nav class="main-nav responsive">
+            <ul>
+                <li><a href="http://www.vickram.me">Home</a></li>
+            </ul>
+        </nav>
+
+        <div class="social-icons">
+            <a href="http://www.vickram.me" class="icon icon-home"></a>
+            <a href="https://www.linkedin.com/in/vickramravichandran" class="icon icon-linkedin"></a>
+            <a href="https://github.com/vickramravichandran" class="icon icon-github-circled"></a>
+        </div>
+
+    </header>
+
+</div>
+
+
+    <div class="content">
+        <main role="main">
+            
+
+<link rel="amphtml" href="http://www.vickram.me/oracle-createcommand-extension-method/amp/" />
+
+
+
+<article class="post tag-c, tag-oracle, tag-odp-net, tag-extension" role="article" itemscope itemtype="http://schema.org/Article">
+    <h1 class="post-title">ODP.NET CreateCommand() extension method</h1>
+    <span class="post-meta">
+        
+        by Vickram Ravichandran
+    </span>
+    <section class="post-content">
+        <p>The number of lines to prepare an <code>OracleCommand</code> object before calling a stored procedure can quickly become redundant and boring. This is how it usually looks like:</p>
+<pre><code class="language-csharp">OracleConnection con = new OracleConnection(&quot;connection string&quot;);
+OracleCommand com = con.CreateCommand();
+com.CommandType = CommandType.StoredProcedure;
+com.CommandText = &quot;get_employees&quot;;
+com.CommandTimeout = 60;
+</code></pre>
+<p>I created a simple extension method on the <code>OracleConnection</code> class that reduces the code to:</p>
+<pre><code class="language-csharp">OracleCommand com = con.CreateCommand(&quot;get_employees&quot;);
+</code></pre>
+<p>Here is the extension method.</p>
+<pre><code class="language-csharp">public static OracleCommand CreateCommand(
+    this OracleConnection con,
+    string commandText,
+    CommandType commandType = CommandType.StoredProcedure,
+    int commandTimeout = 60,
+    bool bindByName = true)
+{
+    OracleCommand cmd = con.CreateCommand();
+    cmd.CommandType = commandType;
+    cmd.CommandText = commandText;
+    cmd.CommandTimeout = commandTimeout;
+
+    // binds the parameters by name.
+    cmd.BindByName = bindByName;
+
+    return cmd;
+}
+</code></pre>
+
+    </section>
+
+    
+<div class="post-meta">
+    <div class="post-tags icon-tag">
+            <a href="/tag/c/">c#</a>  •             <a href="/tag/oracle/">Oracle</a>  •             <a href="/tag/odp-net/">ODP.NET</a>  •             <a href="/tag/extension/">Extension</a>     </div>
+</div>
+
+    
+
+<footer class="post-footer">
+    <section class="share">
+        <h4 class="post-share">Share this post</h4>
+        <ul>
+            <li>
+                <a href="https://plus.google.com/share?url=http://www.vickram.me/oracle-createcommand-extension-method"
+                    onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <i class="icon icon-gplus"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://twitter.com/share?text=ODP.NET+CreateCommand()+extension+method;url=http://www.vickram.me/oracle-createcommand-extension-method"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <i class="icon icon-twitter"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=http://www.vickram.me/oracle-createcommand-extension-method"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <i class="icon icon-facebook"></i>
+                </a>
+            </li>
+        </ul>
+    </section>
+</footer>
+
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script>
+        /**
+        * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+        * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+
+        var disqus_config = function () {
+            this.page.url = "http://www.vickram.me/oracle-createcommand-extension-method";
+            this.page.identifier = "oracle-createcommand-extension-method";
+            this.page.title = "ODP.NET CreateCommand() extension method";
+        };
+
+        (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+
+            s.src = '//vickram.disqus.com/embed.js';
+
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</section>
+
+</article>
+
+
+        </main>
+    </div>
+
+    <script src="../app.js?v=_QvRy-x53dGG35wUxtaekHJdHwwEkHFwZztABa1JJJM1"></script>
+
+
+</body>
+</html>

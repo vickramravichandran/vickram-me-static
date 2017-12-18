@@ -1,0 +1,395 @@
+
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]-->
+<!--[if IE 7]> <html lang="en" class="ie7"> <![endif]-->
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9 ]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="msvalidate.01" content="" />
+
+    <title>Download CSV using ASP.NET Web API | Vickram Ravichandran</title>
+
+    
+<link rel="shortcut icon" href="/static/favicons/favicon.ico">
+<link rel="apple-touch-icon" sizes="57x57" href="/static/favicons/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/static/favicons/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/static/favicons/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/static/favicons/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/static/favicons/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/static/favicons/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/static/favicons/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/static/favicons/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/favicons/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/static/favicons/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/static/favicons/android-icon-192x192.png">
+<link rel="manifest" href="/static/favicons/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/static/favicons/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,500,400italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+    
+    
+    <link rel="canonical" href="http://www.vickram.me/download-csv-using-asp-net-web-api" />
+    <meta name="keywords" content="asp.net, c#, webapi" />
+
+    
+<meta property="og:site_name" content="Vickram Ravichandran" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Download CSV using ASP.NET Web API" />
+<meta property="og:description" content="The CsvMediaTypeFormatter on Github makes it possible to support text/csv media type to the Web API stack. However, I wanted to rewrite it using the ToCsv() extension method from my earlier post." />
+<meta property="og:url" content="http://www.vickram.me/download-csv-using-asp-net-web-api" />
+
+    <meta property="article:tag" content="asp.net" />
+    <meta property="article:tag" content="c#" />
+    <meta property="article:tag" content="webapi" />
+
+    
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Download CSV using ASP.NET Web API" />
+<meta name="twitter:description" content="The CsvMediaTypeFormatter on Github makes it possible to support text/csv media type to the Web API stack. However, I wanted to rewrite it using the ToCsv() extension method from my earlier post." />
+<meta name="twitter:url" content="http://www.vickram.me/download-csv-using-asp-net-web-api" />
+<meta name="twitter:label1" content="Written by" />
+<meta name="twitter:data1" content="Vickram Ravichandran" />
+<meta name="twitter:label2" content="Filed under" />
+<meta name="twitter:data2" content="asp.net, c#, webapi" />
+
+
+    
+<script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Vickram Ravichandran",
+        "logo": "https://vickram.blob.core.windows.net/images/vickram-ravichandran.png?sv=2017-04-17&ss=b&srt=o&sp=r&se=2050-10-15T01:20:16Z&st=2017-10-14T17:20:16Z&spr=https&sig=HW39593GSHaPDTL%2F1BqWDWOaNQczc5ZGnPLRzUswd8k%3D"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Vickram Ravichandran",
+        "url": "http://www.vickram.me/author/vickramravichandran/",
+        "sameAs": [ "https://www.linkedin.com/in/vickramravichandran" ]
+    },
+    "headline": "Download CSV using ASP.NET Web API",
+    "url": "http://www.vickram.me/download-csv-using-asp-net-web-api",
+    "keywords": "asp.net, c#, webapi",
+    "description": "The CsvMediaTypeFormatter on Github makes it possible to support text/csv media type to the Web API stack. However, I wanted to rewrite it using the ToCsv() extension method from my earlier post.",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://www.vickram.me"
+        }
+    }
+</script>
+
+
+
+
+
+    
+<script type="application/ld+json">
+    {
+        "@context": "http://schema.org/",
+        "@type": "Person",
+        "name": "Vickram Ravichandran",
+        "image":"https://vickram.blob.core.windows.net/images/vickram-ravichandran.png?sv=2017-04-17&ss=b&srt=o&sp=r&se=2050-10-15T01:20:16Z&st=2017-10-14T17:20:16Z&spr=https&sig=HW39593GSHaPDTL%2F1BqWDWOaNQczc5ZGnPLRzUswd8k%3D",
+        "jobTitle": "Senior Software Engineer",
+        "url": "http://www.vickram.me",
+        "sameAs" : [ https://www.linkedin.com/in/vickramravichandran, "http://www.vickramravichandran.com" ]
+    }
+</script>
+
+
+    <link href="../app.css?v=mIPojOEcdz6Ph8_jbR0rTCs2IrCTDCJgDc6iGtpOEns1" rel="stylesheet"/>
+
+
+    
+    
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+    
+
+
+<div class="sidebar">
+
+    <header class="header" role="banner">
+        <a href="http://www.vickram.me">
+            <img id="blog" class="logo" src="https://vickram.blob.core.windows.net/images/vickram-ravichandran.png?sv=2017-04-17&ss=b&srt=o&sp=r&se=2050-10-15T01:20:16Z&st=2017-10-14T17:20:16Z&spr=https&sig=HW39593GSHaPDTL%2F1BqWDWOaNQczc5ZGnPLRzUswd8k%3D">
+        </a>
+        
+        <h1 class="title">
+            <a href="http://www.vickram.me" style="text-decoration:none">Vickram Ravichandran</a>
+        </h1>
+        <p class="description"></p>
+
+        <div class="separator"></div>
+        
+        <nav class="main-nav responsive">
+            <ul>
+                <li><a href="http://www.vickram.me">Home</a></li>
+            </ul>
+        </nav>
+
+        <div class="social-icons">
+            <a href="http://www.vickram.me" class="icon icon-home"></a>
+            <a href="https://www.linkedin.com/in/vickramravichandran" class="icon icon-linkedin"></a>
+            <a href="https://github.com/vickramravichandran" class="icon icon-github-circled"></a>
+        </div>
+
+    </header>
+
+</div>
+
+
+    <div class="content">
+        <main role="main">
+            
+
+<link rel="amphtml" href="http://www.vickram.me/download-csv-using-asp-net-web-api/amp/" />
+
+
+
+<article class="post tag-asp-net, tag-c, tag-webapi" role="article" itemscope itemtype="http://schema.org/Article">
+    <h1 class="post-title">Download CSV using ASP.NET Web API</h1>
+    <span class="post-meta">
+        
+        by Vickram Ravichandran
+    </span>
+    <section class="post-content">
+        <p>The <code>CsvMediaTypeFormatter</code> on <a href="https://github.com/WebApiContrib/WebAPIContrib/blob/master/src/WebApiContrib/Formatting/CSVMediaTypeFormatter.cs">Github</a> makes it possible to support <code>text/csv</code> media type to the Web API stack. However, I wanted to rewrite it using the <a href="http://www.vickram.me/ienumerable-to-csv-extension-method/">ToCsv()</a> extension method from my <a href="http://www.vickram.me/ienumerable-to-csv-extension-method/">earlier post</a>.</p>
+<pre><code class="language-csharp">using App.Helpers;
+
+namespace App.Web.MediaTypes
+{
+    public class CsvMediaTypeFormatter : BufferedMediaTypeFormatter
+    {
+        public CsvMediaTypeFormatter()
+        {
+            SupportedMediaTypes.Add(new MediaTypeHeaderValue(&quot;text/csv&quot;));
+        }
+
+        public override bool CanReadType(Type type)
+        {
+            return false;
+        }
+
+        public override bool CanWriteType(Type type)
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException(&quot;type&quot;);
+            }
+
+            // type must implement IEnumerable
+            return typeof(IEnumerable).IsAssignableFrom(type);
+        }
+
+        public override void WriteToStream(
+            Type type,
+            object value,
+            Stream writeStream,
+            HttpContent content)
+        {
+            using (var writer = new StreamWriter(writeStream))
+            {
+                string csv = ((IEnumerable)value).ToCsv();
+                writer.Write(csv);
+            }
+        }
+    }
+}
+</code></pre>
+<p>Add the <code>CsvMediaTypeFormatter</code> to the formatters collection in the start up configuration code.</p>
+<pre><code class="language-csharp">using App.Web.MediaTypes;
+
+namespace App.Web
+{
+    public static class WebApiConfig
+    {
+        public static void Register(HttpConfiguration config)
+        {
+            // add the media formatter to the pipeline
+            config.Formatters.Add(new CsvMediaTypeFormatter());
+        }
+    }
+}
+</code></pre>
+<p>With the above configuration in place, a call to the web service with the <code>Accept</code> request header set to <code>text/csv</code> will return csv formatted output.</p>
+<pre><code class="language-csharp">[RoutePrefix(&quot;api&quot;)]
+public class MainController : ApiController
+{
+    [Route(&quot;Cars&quot;)]
+    public List&lt;Car&gt; GetCars()
+    {
+        var cars = new List&lt;Car&gt;();
+
+        cars.Add(new Car { Make = &quot;Chevy&quot;, Year = 2004});
+        cars.Add(new Car { Make = &quot;Ford&quot;, Year = 2005});
+
+        return cars;
+    }
+}
+
+[JsonObject]
+public class Car
+{
+    [JsonProperty(PropertyName = &quot;make&quot;, Order = 1)]
+    public string Make { get; set; }
+    
+    [JsonProperty(PropertyName = &quot;year&quot;, Order = 0)]
+    public int Year { get; set; }
+}
+</code></pre>
+<p>Same can be achieved if the method returns a <code>HttpResponseMessage</code>. Code shown is based on <a href="http://www.asp.net/web-api/overview/formats-and-model-binding/content-negotiation">How Content Negotiation Works</a></p>
+<pre><code class="language-csharp">[Route(&quot;CarsFile&quot;)]
+public HttpResponseMessage GetCarsFile()
+{
+    var cars = new List&lt;Car&gt;();
+
+    cars.Add(new Car { Make = &quot;Chevy&quot;, Year = 2004});
+    cars.Add(new Car { Make = &quot;Ford&quot;, Year = 2005});
+    
+    var negotiator = this.Configuration.Services.GetContentNegotiator();
+
+    var result = negotiator.Negotiate(typeof(List&lt;Car&gt;),
+                   this.Request,
+                   this.Configuration.Formatters);
+
+    // no formatter found
+    if (result == null)
+    {
+        throw new HttpResponseException(
+              new HttpResponseMessage(HttpStatusCode.NotAcceptable));
+    }
+
+    var response = new HttpResponseMessage
+    {
+        Content = new ObjectContent&lt;List&lt;Car&gt;&gt;(
+            cars,  // data
+            result.Formatter, // media formatter
+            result.MediaType.MediaType // MIME type
+        )
+    };
+
+    // add the `content-disposition` response header
+    // to display the &quot;File Download&quot; dialog box 
+    response.Content.Headers.ContentDisposition = 
+        new ContentDispositionHeaderValue(&quot;attachment&quot;)
+    {
+        FileName = &quot;cars-download.&quot; + GetFileExt(result.Formatter);
+    };
+
+    return response;
+}
+
+private string GetFileExt(MediaTypeFormatter formatter)
+{
+    if (formatter is JsonMediaTypeFormatter)
+    {
+        return &quot;json&quot;;
+    }
+
+    if (formatter is CsvMediaTypeFormatter)
+    {
+        return &quot;csv&quot;;
+    }
+
+    // default to text
+    return &quot;txt&quot;;
+}
+</code></pre>
+<p>Related</p>
+<ul>
+<li>http://www.vickram.me/ienumerable-to-csv-extension-method/</li>
+<li>http://www.asp.net/web-api/overview/formats-and-model-binding/content-negotiation</li>
+</ul>
+
+    </section>
+
+    
+<div class="post-meta">
+    <div class="post-tags icon-tag">
+            <a href="/tag/asp-net/">asp.net</a>  •             <a href="/tag/c/">c#</a>  •             <a href="/tag/webapi/">webapi</a>     </div>
+</div>
+
+    
+
+<footer class="post-footer">
+    <section class="share">
+        <h4 class="post-share">Share this post</h4>
+        <ul>
+            <li>
+                <a href="https://plus.google.com/share?url=http://www.vickram.me/download-csv-using-asp-net-web-api"
+                    onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <i class="icon icon-gplus"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://twitter.com/share?text=Download+CSV+using+ASP.NET+Web+API;url=http://www.vickram.me/download-csv-using-asp-net-web-api"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <i class="icon icon-twitter"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=http://www.vickram.me/download-csv-using-asp-net-web-api"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <i class="icon icon-facebook"></i>
+                </a>
+            </li>
+        </ul>
+    </section>
+</footer>
+
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script>
+        /**
+        * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+        * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+
+        var disqus_config = function () {
+            this.page.url = "http://www.vickram.me/download-csv-using-asp-net-web-api";
+            this.page.identifier = "download-csv-using-asp-net-web-api";
+            this.page.title = "Download CSV using ASP.NET Web API";
+        };
+
+        (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+
+            s.src = '//vickram.disqus.com/embed.js';
+
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</section>
+
+</article>
+
+
+        </main>
+    </div>
+
+    <script src="../app.js?v=_QvRy-x53dGG35wUxtaekHJdHwwEkHFwZztABa1JJJM1"></script>
+
+
+</body>
+</html>

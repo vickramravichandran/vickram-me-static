@@ -1,0 +1,465 @@
+
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]-->
+<!--[if IE 7]> <html lang="en" class="ie7"> <![endif]-->
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9 ]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="msvalidate.01" content="" />
+
+    <title>Custom DateTime Model Binding in ASP.NET Web API | Vickram Ravichandran</title>
+
+    
+<link rel="shortcut icon" href="/static/favicons/favicon.ico">
+<link rel="apple-touch-icon" sizes="57x57" href="/static/favicons/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/static/favicons/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/static/favicons/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/static/favicons/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/static/favicons/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/static/favicons/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/static/favicons/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/static/favicons/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/favicons/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/static/favicons/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/static/favicons/android-icon-192x192.png">
+<link rel="manifest" href="/static/favicons/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/static/favicons/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,500,400italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+    
+    
+    <link rel="canonical" href="http://www.vickram.me/custom-datetime-model-binding-in-asp-net-web-api" />
+    <meta name="keywords" content="asp.net, c#, webapi" />
+
+    
+<meta property="og:site_name" content="Vickram Ravichandran" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Custom DateTime Model Binding in ASP.NET Web API" />
+<meta property="og:description" content="ASP.NET Web API binds simple data types like DateTime by reading from the URL by default. Source: Parameter Binding in ASP.NET Web API By default, Web API uses the following rules to bind parameters: If the parameter is a �simple� type, Web API tries to get the value" />
+<meta property="og:url" content="http://www.vickram.me/custom-datetime-model-binding-in-asp-net-web-api" />
+
+    <meta property="article:tag" content="asp.net" />
+    <meta property="article:tag" content="c#" />
+    <meta property="article:tag" content="webapi" />
+
+    
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Custom DateTime Model Binding in ASP.NET Web API" />
+<meta name="twitter:description" content="ASP.NET Web API binds simple data types like DateTime by reading from the URL by default. Source: Parameter Binding in ASP.NET Web API By default, Web API uses the following rules to bind parameters: If the parameter is a �simple� type, Web API tries to get the value" />
+<meta name="twitter:url" content="http://www.vickram.me/custom-datetime-model-binding-in-asp-net-web-api" />
+<meta name="twitter:label1" content="Written by" />
+<meta name="twitter:data1" content="Vickram Ravichandran" />
+<meta name="twitter:label2" content="Filed under" />
+<meta name="twitter:data2" content="asp.net, c#, webapi" />
+
+
+    
+<script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Vickram Ravichandran",
+        "logo": "https://vickram.blob.core.windows.net/images/vickram-ravichandran.png?sv=2017-04-17&ss=b&srt=o&sp=r&se=2050-10-15T01:20:16Z&st=2017-10-14T17:20:16Z&spr=https&sig=HW39593GSHaPDTL%2F1BqWDWOaNQczc5ZGnPLRzUswd8k%3D"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Vickram Ravichandran",
+        "url": "http://www.vickram.me/author/vickramravichandran/",
+        "sameAs": [ "https://www.linkedin.com/in/vickramravichandran" ]
+    },
+    "headline": "Custom DateTime Model Binding in ASP.NET Web API",
+    "url": "http://www.vickram.me/custom-datetime-model-binding-in-asp-net-web-api",
+    "keywords": "asp.net, c#, webapi",
+    "description": "ASP.NET Web API binds simple data types like DateTime by reading from the URL by default. Source: Parameter Binding in ASP.NET Web API By default, Web API uses the following rules to bind parameters: If the parameter is a �simple� type, Web API tries to get the value",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://www.vickram.me"
+        }
+    }
+</script>
+
+
+
+
+
+    
+<script type="application/ld+json">
+    {
+        "@context": "http://schema.org/",
+        "@type": "Person",
+        "name": "Vickram Ravichandran",
+        "image":"https://vickram.blob.core.windows.net/images/vickram-ravichandran.png?sv=2017-04-17&ss=b&srt=o&sp=r&se=2050-10-15T01:20:16Z&st=2017-10-14T17:20:16Z&spr=https&sig=HW39593GSHaPDTL%2F1BqWDWOaNQczc5ZGnPLRzUswd8k%3D",
+        "jobTitle": "Senior Software Engineer",
+        "url": "http://www.vickram.me",
+        "sameAs" : [ https://www.linkedin.com/in/vickramravichandran, "http://www.vickramravichandran.com" ]
+    }
+</script>
+
+
+    <link href="../app.css?v=mIPojOEcdz6Ph8_jbR0rTCs2IrCTDCJgDc6iGtpOEns1" rel="stylesheet"/>
+
+
+    
+    
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+    
+
+
+<div class="sidebar">
+
+    <header class="header" role="banner">
+        <a href="http://www.vickram.me">
+            <img id="blog" class="logo" src="https://vickram.blob.core.windows.net/images/vickram-ravichandran.png?sv=2017-04-17&ss=b&srt=o&sp=r&se=2050-10-15T01:20:16Z&st=2017-10-14T17:20:16Z&spr=https&sig=HW39593GSHaPDTL%2F1BqWDWOaNQczc5ZGnPLRzUswd8k%3D">
+        </a>
+        
+        <h1 class="title">
+            <a href="http://www.vickram.me" style="text-decoration:none">Vickram Ravichandran</a>
+        </h1>
+        <p class="description"></p>
+
+        <div class="separator"></div>
+        
+        <nav class="main-nav responsive">
+            <ul>
+                <li><a href="http://www.vickram.me">Home</a></li>
+            </ul>
+        </nav>
+
+        <div class="social-icons">
+            <a href="http://www.vickram.me" class="icon icon-home"></a>
+            <a href="https://www.linkedin.com/in/vickramravichandran" class="icon icon-linkedin"></a>
+            <a href="https://github.com/vickramravichandran" class="icon icon-github-circled"></a>
+        </div>
+
+    </header>
+
+</div>
+
+
+    <div class="content">
+        <main role="main">
+            
+
+<link rel="amphtml" href="http://www.vickram.me/custom-datetime-model-binding-in-asp-net-web-api/amp/" />
+
+
+
+<article class="post tag-asp-net, tag-c, tag-webapi" role="article" itemscope itemtype="http://schema.org/Article">
+    <h1 class="post-title">Custom DateTime Model Binding in ASP.NET Web API</h1>
+    <span class="post-meta">
+        
+        by Vickram Ravichandran
+    </span>
+    <section class="post-content">
+        <p>ASP.NET Web API binds simple data types like <code>DateTime</code> by reading from the URL by default.</p>
+<blockquote>
+<p>Source: <a href="http://www.asp.net/web-api/overview/formats-and-model-binding/parameter-binding-in-aspnet-web-api">Parameter Binding in ASP.NET Web API</a></p>
+</blockquote>
+<blockquote>
+<p>By default, Web API uses the following rules to bind parameters:</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>If the parameter is a “simple” type, Web API tries to get the value from the URI. Simple types include the .NET primitive types (int, bool, double, and so forth), plus TimeSpan, DateTime, Guid, decimal, and string, plus any type with a type converter that can convert from a string. (More about type converters later.)</li>
+</ul>
+</blockquote>
+<ul>
+<li>For complex types, Web API tries to read the value from the message body, using a media-type formatter.</li>
+</ul>
+<p>This default mechanism does not work for custom URL friendly date formats:</p>
+<pre><code>yyyyMMdd
+yyyy-MM-dd
+MM-dd-yyyy
+yyyyMMddTHHmmss
+yyyy-MM-ddTHH-mm-ss
+</code></pre>
+<p>One option is to create a custom implementation of the <code>HttpParameterBinding</code> class to read the date string from the URL, as follows. The class assumes the route or querystring parameter is called &quot;date&quot;.</p>
+<pre><code class="language-csharp">namespace App.Web.Http.Helpers
+{
+    public class DateTimeParameterBinding : HttpParameterBinding
+    {
+        public string DateFormat { get; set; }
+
+        public bool ReadFromQueryString { get; set; }
+
+
+        public DateTimeParameterBinding(HttpParameterDescriptor descriptor)
+            : base(descriptor) { }
+
+        public override Task ExecuteBindingAsync(
+            ModelMetadataProvider metadataProvider,
+            HttpActionContext actionContext,
+            CancellationToken cancellationToken)
+        {
+            string dateToParse = null;
+            string paramName = this.Descriptor.ParameterName;
+            
+            if (ReadFromQueryString)
+            {
+                // reading from query string
+                var nameVal = actionContext.Request.GetQueryNameValuePairs();
+                dateToParse = nameVal.Where(q =&gt; q.Key.EqualsEx(paramName))
+                                     .FirstOrDefault().Value;
+            }
+            else
+            {
+                // reading from route
+                var routeData = actionContext.Request.GetRouteData();
+                object dateObj = null;
+                if (routeData.Values.TryGetValue(paramName, out dateObj))
+                {
+                    dateToParse = Convert.ToString(dateObj);
+                }
+            }
+
+            DateTime? dateTime = null;
+            if (!string.IsNullOrEmpty(dateToParse))
+            {
+                if (string.IsNullOrEmpty(DateFormat))
+                {
+                    dateTime = ParseDateTime(dateToParse);
+                }
+                else
+                {
+                    dateTime = ParseDateTime(dateToParse, new string[] { DateFormat });
+                }
+            }
+
+            SetValue(actionContext, dateTime);
+
+            return Task.FromResult&lt;object&gt;(null);
+        }        
+
+        public DateTime? ParseDateTime(
+            string dateToParse,
+            string[] formats = null,
+            IFormatProvider provider = null,
+            DateTimeStyles styles = DateTimeStyles.AssumeLocal)
+        {
+            string[] CUSTOM_DATE_FORMATS = new string[] 
+                { 
+                    &quot;yyyyMMddTHHmmssZ&quot;,
+                    &quot;yyyyMMddTHHmmZ&quot;,
+                    &quot;yyyyMMddTHHmmss&quot;,
+                    &quot;yyyyMMddTHHmm&quot;,
+                    &quot;yyyyMMddHHmmss&quot;,
+                    &quot;yyyyMMddHHmm&quot;,
+                    &quot;yyyyMMdd&quot;,
+                    &quot;yyyy-MM-dd-HH-mm-ss&quot;,
+                    &quot;yyyy-MM-dd-HH-mm&quot;,
+                    &quot;yyyy-MM-dd&quot;,
+                    &quot;MM-dd-yyyy&quot;
+                };
+
+            if (formats == null)
+            {
+                formats = CUSTOM_DATE_FORMATS;
+            }
+
+            DateTime validDate;
+
+            foreach (var format in formats)
+            {
+                if (format.EndsWith(&quot;Z&quot;))
+                {
+                    if (DateTime.TryParseExact(dateToParse, format, 
+                             provider, 
+                             DateTimeStyles.AssumeUniversal, 
+                             out validDate))
+                    {
+                        return validDate;
+                    }
+                }
+                else
+                {
+                    if (DateTime.TryParseExact(dateToParse, format,
+                             provider, styles, out validDate))
+                    {
+                        return validDate;
+                    }
+                }
+            }
+
+            return null;
+        }
+    }
+}
+</code></pre>
+<p>We also need an attribute that we can apply to the method parameter to indicate that we want to use the <code>DateTimeParameterBinding</code> class for binding.</p>
+<pre><code class="language-csharp">namespace App.Web.Http.Helpers
+{
+    public class DateTimeParameterAttribute : ParameterBindingAttribute
+    {
+        public string DateFormat { get; set; }
+
+        public bool ReadFromQueryString { get; set; }
+
+
+        public override HttpParameterBinding GetBinding(
+            HttpParameterDescriptor parameter)
+        {
+            if (parameter.ParameterType == typeof(DateTime?))
+            {
+                var binding = new DateTimeParameterBinding(parameter);
+
+                binding.DateFormat = DateFormat;
+                binding.ReadFromQueryString = ReadFromQueryString;
+                
+                return binding;
+            }
+
+            return parameter.BindAsError(&quot;Expected type DateTime?&quot;);
+        }
+    }
+}
+</code></pre>
+<p>Apply the <code>[DateTimeParameter]</code> attribute to the method parameter.</p>
+<pre><code class="language-csharp">[RoutePrefix(&quot;api&quot;)]
+public class MainController : ApiController  
+{
+    [Route(&quot;EchoDate/{date}&quot;)]
+    [HttpGet]
+    public DateTime? EchoDate(
+        [DateTimeParameter]
+        DateTime? date)
+    {
+        return date;
+    }
+
+    [Route(&quot;EchoCustomDate/{date}&quot;)]
+    [HttpGet]
+    public DateTime? EchoCustomDateFormat(
+        [DateTimeParameter(DateFormat = &quot;dd_MM_yyyy&quot;)]
+        DateTime? date)
+    {
+        return date;
+    }
+}
+</code></pre>
+<p>Alternatively, we can add it globally during application startup in which case the <code>[DateTimeParameter]</code> attribute is not required. With the rule added to the configuration, any method parameter named &quot;date&quot; of type <code>DateTime?</code> will be automatically bound.</p>
+<pre><code class="language-csharp">using App.Web.Http.Helpers;
+
+namespace App.Web  
+{
+    public static class WebApiConfig
+    {
+        public static void Register(HttpConfiguration config)
+        {
+            // add the rule to the collection
+            config.ParameterBindingRules
+                  .Add(typeof(DateTime?), 
+                       des =&gt; new DateTimeParameterBinding(des));
+        }
+    }
+}
+</code></pre>
+<p>We can now verify that all these work as expected.</p>
+<pre><code>GET http://localhost/WebApi/api/EchoDate/20150115
+
+GET http://localhost/WebApi/api/EchoDate/2015-01-15
+
+GET http://localhost/WebApi/api/EchoDate/10-05-2015
+
+GET http://localhost/WebApi/api/EchoDate/20150115T142354
+
+GET http://localhost/WebApi/api/EchoDate/2015-01-15T14-23-54
+</code></pre>
+<p>Related:</p>
+<ul>
+<li><a href="http://www.asp.net/web-api/overview/formats-and-model-binding/parameter-binding-in-aspnet-web-api">Parameter Binding in ASP.NET Web API</a></li>
+</ul>
+
+    </section>
+
+    
+<div class="post-meta">
+    <div class="post-tags icon-tag">
+            <a href="/tag/asp-net/">asp.net</a>  •             <a href="/tag/c/">c#</a>  •             <a href="/tag/webapi/">webapi</a>     </div>
+</div>
+
+    
+
+<footer class="post-footer">
+    <section class="share">
+        <h4 class="post-share">Share this post</h4>
+        <ul>
+            <li>
+                <a href="https://plus.google.com/share?url=http://www.vickram.me/custom-datetime-model-binding-in-asp-net-web-api"
+                    onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <i class="icon icon-gplus"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://twitter.com/share?text=Custom+DateTime+Model+Binding+in+ASP.NET+Web+API;url=http://www.vickram.me/custom-datetime-model-binding-in-asp-net-web-api"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <i class="icon icon-twitter"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=http://www.vickram.me/custom-datetime-model-binding-in-asp-net-web-api"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <i class="icon icon-facebook"></i>
+                </a>
+            </li>
+        </ul>
+    </section>
+</footer>
+
+    
+<section class="post-comments">
+    <div id="disqus_thread"></div>
+    <script>
+        /**
+        * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+        * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+
+        var disqus_config = function () {
+            this.page.url = "http://www.vickram.me/custom-datetime-model-binding-in-asp-net-web-api";
+            this.page.identifier = "custom-datetime-model-binding-in-asp-net-web-api";
+            this.page.title = "Custom DateTime Model Binding in ASP.NET Web API";
+        };
+
+        (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+
+            s.src = '//vickram.disqus.com/embed.js';
+
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</section>
+
+</article>
+
+
+        </main>
+    </div>
+
+    <script src="../app.js?v=_QvRy-x53dGG35wUxtaekHJdHwwEkHFwZztABa1JJJM1"></script>
+
+
+</body>
+</html>
